@@ -1,0 +1,7 @@
+{% set connector = salt['pillar.get']('mysql_connector', merge=True) %}
+
+{% do connector.update({
+  'url': connector.get('url', 'http://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-' ~ connector.version ~ '.tar.gz'),
+  'file': connector.get('file', connector.homedir ~ '/' ~ 'mysql-connector-java-' ~ connector.version ~ '-bin.jar'),
+  'taropts': connector.get('taropts', '--extract' ~ ' ' ~ 'mysql-connector-java-' ~ connector.version ~ '/' ~ 'mysql-connector-java-' ~ connector.version ~ '-bin.jar' ~ ' ' ~ '--strip-components 1')
+}) %}
